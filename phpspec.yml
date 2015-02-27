@@ -1,5 +1,5 @@
 suites:
     main:
-        namespace: App
-        psr4_prefix: App
+        namespace: LaravelTodo
+        psr4_prefix: LaravelTodo
         src_path: app
