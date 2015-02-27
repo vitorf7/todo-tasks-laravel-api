@@ -16,7 +16,8 @@ class TasksTableSeeder extends Seeder {
             Task::create(array(
                 'user_id'       => (int) $faker->numberBetween(1, 101),
                 'title'         => (string) $faker->sentence(3),
-                'description'   => (string) $faker->realText(100)
+                'description'   => (string) $faker->realText(100),
+                'completed'     => $faker->boolean()
             ));
 
         }
