@@ -3,10 +3,11 @@
 use LaravelTodo\Http\Requests;
 use Illuminate\Http\Response;
 
+use Illuminate\Http\Request;
 use LaravelTodo\Task;
 use VitorFaiante\Transformers\TaskTransformer;
 
-class ApiTasksController extends Controller {
+class ApiTasksController extends ApiController {
 
     /**
      * @var TaskTransformer
@@ -20,6 +21,8 @@ class ApiTasksController extends Controller {
     function __construct(TaskTransformer $taskTransformer)
     {
         $this->taskTransformer = $taskTransformer;
+
+        $this->middleware('auth.basic', array('only' => 'post'));
     }
 
 
@@ -32,9 +35,9 @@ class ApiTasksController extends Controller {
 	{
         $tasks = Task::all();
 
-        return response(array(
+        return $this->respond(array(
             'data'  => $this->taskTransformer->transformCollection($tasks->all())
-        ), 200);
+        ));
 
 	}
 
@@ -48,14 +51,25 @@ class ApiTasksController extends Controller {
 		//
 	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+	public function store( Request $request)
 	{
-		//
+		if ( ! $request->input('user_id') || ! $request->input('title') || ! $request->input('description') ) {
+
+            // return 422
+            return $this->respondUnprocessableEntity('Parameters failed validation for a task.');
+
+        }
+
+        Task::create($request->all());
+
+        return $this->respondCreated( 'Task has been created successfully' );
 	}
 
 	/**
@@ -69,16 +83,12 @@ class ApiTasksController extends Controller {
 		$task = Task::find($id);
 
         if ( !$task ) {
-            return response(array(
-                'errors' => array(
-                    'message'   => 'Task Not Found'
-                )
-            ), 404);
+            return $this->respondNotFound('Task Not Found!');
         }
 
-        return response(array(
+        return $this->respond(array(
             'data'  => $this->taskTransformer->transform($task)
-        ), 200);
+        ));
 
 	}
 

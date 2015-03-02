@@ -32,12 +32,64 @@ class ApiController extends Controller {
      *
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
+    public function respondCreated( $message = 'Successfully Created.' )
+    {
+        return $this->setStatusCode(201)->respond(array(
+            'message'   => $message
+        ));
+    }
+
+    /**
+     * @param string $message
+     *
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
     public function respondNotFound( $message = 'Not Found!' )
     {
-        return response(array(
+        return $this->setStatusCode(404)->respondWithError($message);
+    }
+
+    /**
+     * @param string $message
+     *
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
+    public function respondInternalError( $message = 'Internal Error!' )
+    {
+        return $this->setStatusCode(500)->respondWithError($message);
+    }
+
+    /**
+     * @param string $message
+     *
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
+    public function respondUnprocessableEntity( $message = 'Unprocessable Request!' ){
+        return $this->setStatusCode(422)->respondWithError($message);
+    }
+
+    /**
+     * @param       $data
+     * @param array $headers
+     *
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
+    public function respond($data, $headers = array())
+    {
+        return response($data, $this->getStatusCode(), $headers);
+    }
+
+    /**
+     * @param $message
+     *
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
+    public function respondWithError($message)
+    {
+        return $this->respond(array(
             'error'     => array(
                 'message'       => $message,
-                'status_code'   => $this->setStatusCode(404)->getStatusCode()
+                'status_code'   => $this->getStatusCode()
             )
         ));
     }
