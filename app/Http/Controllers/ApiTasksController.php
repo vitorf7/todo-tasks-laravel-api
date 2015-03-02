@@ -2,13 +2,28 @@
 
 use LaravelTodo\Http\Requests;
 use Illuminate\Http\Response;
-use LaravelTodo\Http\Controllers\Controller;
 
 use LaravelTodo\Task;
+use VitorFaiante\Transformers\TaskTransformer;
 
 class ApiTasksController extends Controller {
 
-	/**
+    /**
+     * @var TaskTransformer
+     */
+    private $taskTransformer;
+
+    /**
+     * Constructor
+     * @param TaskTransformer $taskTransformer
+     */
+    function __construct(TaskTransformer $taskTransformer)
+    {
+        $this->taskTransformer = $taskTransformer;
+    }
+
+
+    /**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
@@ -18,7 +33,7 @@ class ApiTasksController extends Controller {
         $tasks = Task::all();
 
         return response(array(
-            'data'  => $this->transformCollection($tasks)
+            'data'  => $this->taskTransformer->transformCollection($tasks->all())
         ), 200);
 
 	}
@@ -62,7 +77,7 @@ class ApiTasksController extends Controller {
         }
 
         return response(array(
-            'data'  => $this->transform($task)
+            'data'  => $this->taskTransformer->transform($task)
         ), 200);
 
 	}
@@ -99,20 +114,5 @@ class ApiTasksController extends Controller {
 	{
 		//
 	}
-
-    private function transformCollection( $tasks )
-    {
-        return array_map(array($this, 'transform'), $tasks->toArray());
-    }
-
-    private function transform($tasks)
-    {
-        return array(
-            'title'         => $tasks['title'],
-            'description'   => $tasks['description'],
-            'completed'     => (bool) $tasks['completed']
-        );
-
-    }
 
 }

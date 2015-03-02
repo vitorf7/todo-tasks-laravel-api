@@ -18,7 +18,8 @@
 			"database"
 		],
 		"psr-4": {
-			"LaravelTodo\\": "app/"
+			"LaravelTodo\\": "app/",
+            "VitorFaiante\\": "app/VitorFaiante/"
 		}
 	},
 	"autoload-dev": {
