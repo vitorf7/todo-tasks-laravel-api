@@ -27,19 +27,23 @@ class ApiTasksController extends ApiController {
 
 
     /**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
+     * Display a listing of the resource.
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+	public function index(Request $request)
 	{
-        $tasks = Task::all();
+        $limit = $request->get('limit', 5);
 
-        return $this->respond(array(
+        $tasks = Task::paginate($limit);
+
+        return $this->respondWithPagination( $tasks, array(
             'data'  => $this->taskTransformer->transformCollection($tasks->all())
-        ));
+        ) );
 
-	}
+    }
 
 	/**
 	 * Show the form for creating a new resource.
@@ -58,7 +62,7 @@ class ApiTasksController extends ApiController {
      *
      * @return Response
      */
-	public function store( Request $request)
+	public function store(Request $request)
 	{
 		if ( ! $request->input('user_id') || ! $request->input('title') || ! $request->input('description') ) {
 

@@ -28,6 +28,30 @@ class ApiController extends Controller {
     }
 
     /**
+     * @param $items
+     * @param $data
+     *
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
+    public function respondWithPagination( $items, $data )
+    {
+        $paginated_items = $items->toArray();
+
+        $data = array_merge( $data, array(
+            'total_count' => $paginated_items[ 'total' ],
+            'per_page' => (int) $paginated_items[ 'per_page' ],
+            'current_page' => $paginated_items[ 'current_page' ],
+            'total_pages' => $paginated_items[ 'last_page' ],
+            'from' => $paginated_items[ 'from' ],
+            'to' => $paginated_items[ 'to' ],
+            'next_page' => $paginated_items[ 'next_page_url' ],
+            'previous_page' => $paginated_items[ 'prev_page_url' ]
+        ) );
+
+        return $this->respond( $data );
+    }
+
+    /**
      * @param string $message
      *
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
