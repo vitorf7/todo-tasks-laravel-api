@@ -68,7 +68,7 @@ class TasksTest extends ApiTester {
      */
     public function testItCreatesNewTaskGivenValidParameters()
     {
-//        $this->getAuthenticatedUser();
+        $this->getAuthenticatedUser();
 
         $this->getJson('api/v1/tasks', 'POST', array_merge($this->getStub(), $this->getSessionCsrftoken()));
 
@@ -80,7 +80,7 @@ class TasksTest extends ApiTester {
      */
     public function testItThrows422IfTaskRequestFailsValidation()
     {
-//        $this->getAuthenticatedUser();
+        $this->getAuthenticatedUser();
 
         $this->getJson('api/v1/tasks', 'POST', $this->getSessionCsrftoken());
 
