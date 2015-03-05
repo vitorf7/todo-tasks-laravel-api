@@ -44,8 +44,6 @@ abstract class ApiTester extends TestCase {
     public function tearDown()
     {
         parent::tearDown();
-
-//        $this->flushSession();
     }
 
     /**
