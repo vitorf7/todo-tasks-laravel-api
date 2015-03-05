@@ -4,6 +4,14 @@ class TasksTest extends ApiTester {
 
     use TestFactory;
 
+    /**
+     * Method to stub a new Task
+     * Uses faker library to create mock content
+     *
+     * @param array $fields
+     *
+     * @return array
+     */
     public function getStub($fields = array())
     {
         return array_merge(array(
@@ -24,6 +32,7 @@ class TasksTest extends ApiTester {
         $this->getJson('api/v1/tasks');
 
         $this->assertResponseOk();
+        var_dump($this->app->environment());
     }
 
     /**
@@ -56,11 +65,13 @@ class TasksTest extends ApiTester {
     }
 
     /**
-     * Test a new lesson is successfully created
+     * Test a new task is successfully created
      */
-    public function testItCreatesNewLessonGivenValidParameters()
+    public function testItCreatesNewTaskGivenValidParameters()
     {
-        $this->getJson('api/v1/tasks', 'POST', $this->getStub(array('user_id' => 1)));
+//        $this->getAuthenticatedUser();
+
+        $this->getJson('api/v1/tasks', 'POST', array_merge($this->getStub(), $this->getSessionCsrftoken()));
 
         $this->assertResponseStatus(201);
     }
@@ -70,7 +81,9 @@ class TasksTest extends ApiTester {
      */
     public function testItThrows422IfTaskRequestFailsValidation()
     {
-        $this->getJson('api/v1/tasks', 'POST');
+//        $this->getAuthenticatedUser();
+
+        $this->getJson('api/v1/tasks', 'POST', $this->getSessionCsrftoken());
 
         $this->assertResponseStatus(422);
     }

@@ -1,6 +1,8 @@
 <?php
 
 use Faker\Factory;
+use Illuminate\Support\Facades\Session;
+use LaravelTodo\User;
 
 /**
  * Class ApiTester
@@ -12,6 +14,8 @@ abstract class ApiTester extends TestCase {
      */
     protected $faker;
 
+    protected $testSession;
+
 
     /**
      * Constructor
@@ -22,13 +26,26 @@ abstract class ApiTester extends TestCase {
     }
 
     /**
-     * Set Up Method
+     * Set Up Method for Tests
      */
     public function setUp()
     {
         parent::setUp();
 
         Artisan::call('migrate');
+
+        $this->session(array());
+        $this->testSession = Session::all();
+    }
+
+    /**
+     * Tear Down Method for Tests
+     */
+    public function tearDown()
+    {
+        parent::tearDown();
+
+//        $this->flushSession();
     }
 
     /**
@@ -43,6 +60,27 @@ abstract class ApiTester extends TestCase {
     protected function getJson($uri, $method = 'GET', $parameters = array() )
     {
         return json_decode( $this->call( $method, $uri, $parameters )->getContent() );
+    }
+
+    /**
+     * Method to create new User and then Authenticate the User
+     * http://laravel.com/docs/5.0/testing#helper-methods
+     */
+    public function getAuthenticatedUser()
+    {
+        $user = new User(['name' => 'McTest', 'email' => 'mctest@example.com', 'password' => Hash::make('password')]);
+        $this->be($user);
+    }
+
+    /**
+     * Method to return the _token for the Session to use during tests that need to
+     * pass through the CSRF middleware
+     *
+     * @return array
+     */
+    public function getSessionCsrftoken()
+    {
+        return array( '_token' => $this->testSession['_token']);
     }
 
     /**
