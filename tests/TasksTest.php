@@ -32,7 +32,6 @@ class TasksTest extends ApiTester {
         $this->getJson('api/v1/tasks');
 
         $this->assertResponseOk();
-        var_dump($this->app->environment());
     }
 
     /**
