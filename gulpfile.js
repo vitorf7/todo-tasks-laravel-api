@@ -12,7 +12,5 @@ var elixir = require('laravel-elixir');
  */
 
 elixir(function(mix) {
-    mix.copy('vendor/zurb/foundation/scss', 'resources/assets/sass');
 
-    mix.sass('styles.scss');
 });

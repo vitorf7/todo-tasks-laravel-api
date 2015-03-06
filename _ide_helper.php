@@ -1,7 +1,7 @@
 <?php
 /**
  * An helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.0.13 on 2015-03-05.
+ * Generated for Laravel 5.0.13 on 2015-03-06.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -11502,6 +11502,225 @@ namespace {
          */
         public static function getNames(){
             return \Illuminate\View\Factory::getNames();
+        }
+        
+    }
+
+
+    class Stylist extends \FloatingPoint\Stylist\Facades\StylistFacade{
+        
+        /**
+         * Register a new theme based on its path. An optional
+         * parameter allows the theme to be activated as soon as its registered.
+         *
+         * @param string $path
+         * @param bool $activate
+         * @static 
+         */
+        public static function register($theme, $activate = false){
+            return \FloatingPoint\Stylist\Theme\Stylist::register($theme, $activate);
+        }
+        
+        /**
+         * Register a theme with Stylist based on its path.
+         *
+         * @param string $path
+         * @param boolean $activate
+         * @static 
+         */
+        public static function registerPath($path, $activate = false){
+            return \FloatingPoint\Stylist\Theme\Stylist::registerPath($path, $activate);
+        }
+        
+        /**
+         * Register a number of themes based on the array of paths provided.
+         *
+         * @param array $paths
+         * @static 
+         */
+        public static function registerPaths($paths){
+            return \FloatingPoint\Stylist\Theme\Stylist::registerPaths($paths);
+        }
+        
+        /**
+         * Activate a theme. Activation can be done by the theme's name, or via a Theme object.
+         *
+         * @param string|\FloatingPoint\Stylist\Theme\Theme $theme
+         * @throws ThemeNotFoundException
+         * @static 
+         */
+        public static function activate($theme){
+            return \FloatingPoint\Stylist\Theme\Stylist::activate($theme);
+        }
+        
+        /**
+         * Returns the currently active theme.
+         *
+         * @return \FloatingPoint\Stylist\Theme\Theme 
+         * @static 
+         */
+        public static function current(){
+            return \FloatingPoint\Stylist\Theme\Stylist::current();
+        }
+        
+        /**
+         * Checks to see whether a theme by a given name has been registered.
+         *
+         * @param string $themeName
+         * @static 
+         */
+        public static function has($themeName){
+            return \FloatingPoint\Stylist\Theme\Stylist::has($themeName);
+        }
+        
+        /**
+         * Retrieves a theme based on its name. If no theme is found it'll throw a ThemeNotFoundException.
+         *
+         * @param string $themeName
+         * @return \FloatingPoint\Stylist\Theme\Theme 
+         * @throws ThemeNotFoundException
+         * @static 
+         */
+        public static function get($themeName){
+            return \FloatingPoint\Stylist\Theme\Stylist::get($themeName);
+        }
+        
+        /**
+         * Returns an array of themes that have been registered with Stylist.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function themes(){
+            return \FloatingPoint\Stylist\Theme\Stylist::themes();
+        }
+        
+        /**
+         * Searches for theme.json files within the directory structure specified by $directory and
+         * returns the theme locations found. This method means that themes do not need to be manually
+         * registered, however - it is a costly operation, and should be cached once you've found the
+         * themes.
+         *
+         * @param $directory
+         * @return array Returns an array of theme directory locations
+         * @static 
+         */
+        public static function discover($directory){
+            return \FloatingPoint\Stylist\Theme\Stylist::discover($directory);
+        }
+        
+        /**
+         * Caches the themes provide. This is particularly handy if you use the discover method
+         * to search your entire installation for themes. Whenever this method is called, it
+         * will wipe the old cache file and re-write the new cache.
+         *
+         * @param array $themes Must consist of Theme objects
+         * @static 
+         */
+        public static function cache($themes = array()){
+            return \FloatingPoint\Stylist\Theme\Stylist::cache($themes);
+        }
+        
+        /**
+         * Clear any cache stylist may currently be using for configuration.
+         *
+         * @return void 
+         * @static 
+         */
+        public static function clearCache(){
+            \FloatingPoint\Stylist\Theme\Stylist::clearCache();
+        }
+        
+        /**
+         * Sets up stylist to use themes from the cache. Stylist uses Laravel's own caching
+         * mechanisms, so this could be stored on the disk, in memcache or elsewhere.
+         *
+         * @static 
+         */
+        public static function setupFromCache(){
+            return \FloatingPoint\Stylist\Theme\Stylist::setupFromCache();
+        }
+        
+        /**
+         * Return the key used for cache storage.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function cacheKey(){
+            return \FloatingPoint\Stylist\Theme\Stylist::cacheKey();
+        }
+        
+    }
+
+
+    class Theme extends \FloatingPoint\Stylist\Facades\ThemeFacade{
+        
+        /**
+         * Generate a link to a JavaScript file.
+         *
+         * @param string $url
+         * @param array $attributes
+         * @param bool $secure
+         * @return string 
+         * @static 
+         */
+        public static function script($url, $attributes = array(), $secure = null){
+            return \FloatingPoint\Stylist\Html\ThemeHtmlBuilder::script($url, $attributes, $secure);
+        }
+        
+        /**
+         * Generate a link to a CSS file. With Stylist, this could actually generate
+         * numerous style tags, due to CSS inheritance requirements.
+         *
+         * @param string $url
+         * @param array $attributes
+         * @param bool $secure
+         * @return string 
+         * @static 
+         */
+        public static function style($url, $attributes = array(), $secure = null){
+            return \FloatingPoint\Stylist\Html\ThemeHtmlBuilder::style($url, $attributes, $secure);
+        }
+        
+        /**
+         * Generate an HTML image element.
+         *
+         * @param string $url
+         * @param string $alt
+         * @param array $attributes
+         * @param bool $secure
+         * @return string 
+         * @static 
+         */
+        public static function image($url, $alt = null, $attributes = array(), $secure = null){
+            return \FloatingPoint\Stylist\Html\ThemeHtmlBuilder::image($url, $alt, $attributes, $secure);
+        }
+        
+        /**
+         * Returns the theme's public URI location. This is not a full URL. If you wish
+         * for a full URL, simply add the site's URL configuration to this path.
+         *
+         * @param string $file
+         * @return string 
+         * @static 
+         */
+        public static function url($file = ''){
+            return \FloatingPoint\Stylist\Html\ThemeHtmlBuilder::url($file);
+        }
+        
+        /**
+         * Generate a HTML link to an asset.
+         *
+         * @param string $url
+         * @param string $title
+         * @param array $attributes
+         * @param bool $secure
+         * @return string 
+         * @static 
+         */
+        public static function linkAsset($url, $title = null, $attributes = array(), $secure = null){
+            return \FloatingPoint\Stylist\Html\ThemeHtmlBuilder::linkAsset($url, $title, $attributes, $secure);
         }
         
     }

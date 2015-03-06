@@ -145,7 +145,11 @@ return [
 		'LaravelTodo\Providers\EventServiceProvider',
 		'LaravelTodo\Providers\RouteServiceProvider',
 
+        /*
+         * Custom Service Providers
+         */
         'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
+        'FloatingPoint\Stylist\StylistServiceProvider',
 
 	],
 
