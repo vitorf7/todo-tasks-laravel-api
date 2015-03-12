@@ -1,54 +1,38 @@
-<!doctype html>
-<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
-<html class="no-js" lang="en" data-useragent="Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Foundation Template | Portfolio Theme</title>
-    <meta name="description" content="Documentation and reference library for ZURB Foundation. JavaScript, CSS, components, grid and more."/>
-    <meta name="author" content="ZURB, inc. ZURB network also includes zurb.com"/>
-    <meta name="copyright" content="Vitor Faiante. Copyright &copy; date"/>
-    <link rel="stylesheet" href="/css/styles.css"/>
-    @yield('header')
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Laravel Todo Tasks">
+    <meta name="author" content="Vitor Faiante">
+
+    <title>Laravel Todo Tasks</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="{!! asset('assets/css/app.css') !!}"/>
+    <link rel="stylesheet" href="{!! asset('assets/css/style.css') !!}"/>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    @yield('header-custom')
 </head>
+
 <body>
+    @include('partials.nav')
 
-<link href="http://fonts.googleapis.com/css?family=Raleway:600,400,200" rel="stylesheet" type="text/css">
-<link href="http://fonts.googleapis.com/css?family=Shadows+Into+Light" rel="stylesheet" type="text/css">
-
-<div class="row">
-    <div class="small-12 medium-4 large-6 columns namelogo">
-        <h1>Name/Logo/Brand</h1>
+    <div class="container">
+        @yield('content')
     </div>
-    <div class="small-12 medium-8 large-6 columns">
-        <div class="nav-bar">
-            <ul class="button-group">
-                <li><a href="#" class="button">About</a></li>
-                <li><a href="#" class="button">Work</a></li>
-                <li><a href="#" class="button">Contact</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
+    <!-- /container -->
 
-@yield('content')
-
-<footer class="row">
-    <div class="large-12 columns">
-        <div class="row">
-            <div class="large-6 columns">
-                <p>© Copyright no one at all. Go to town.</p>
-            </div>
-            <div class="large-6 columns">
-                <ul class="inline-list right">
-                    <li><a href="#">FAQ</a></li>
-                    <li><a href="#">Privacy</a></li>
-                    <li><a href="#">Suscribe</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</footer>
-    @yield('footer')
+    <!-- Footer Scripts -->
+    <script src="{!! asset('assets/js/jquery.js') !!}"></script>
+    <script src="{!! asset('assets/js/bootstrap.js') !!}"></script>
+    @yield('footer-custom')
 </body>
 </html>

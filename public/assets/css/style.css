@@ -1,0 +1,9 @@
+.navbar-nav > li > a {
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
+  border-left: 1px solid rgba(255, 255, 255, 0.1); }
+
+.auth {
+  margin-top: 2em; }
+
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBhcnRpYWxzL19uYXZpZ2F0aW9uLnNjc3MiLCJwYXJ0aWFscy9fYXV0aC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFjO0VBQ0UsNENBQUE7RUFDZCxpREFBYSxFQUFBOztBQ0ZmO0VBQ0UsaUJBQVksRUFBQSIsImZpbGUiOiJzdHlsZS5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIubmF2YmFyLW5hdiA+IGxpID4gYSB7XG4gIGJvcmRlci1yaWdodDogMXB4IHNvbGlkIHJnYmEoMCwgMCwgMCwgMC4yKTtcbiAgYm9yZGVyLWxlZnQ6IDFweCBzb2xpZCByZ2JhKDI1NSwgMjU1LCAyNTUsIDAuMSk7XG59IiwiLmF1dGgge1xuICBtYXJnaW4tdG9wOiAyZW07XG59Il0sInNvdXJjZVJvb3QiOiIvc291cmNlLyJ9 */

@@ -7,7 +7,8 @@
 	"require": {
 		"laravel/framework": "5.0.*",
 		"barryvdh/laravel-ide-helper": "~2.0",
-		"floatingpoint/stylist": "dev-master"
+		"floatingpoint/stylist": "dev-master",
+		"filp/whoops": "~1.0"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "~4.0",
